@@ -12,13 +12,30 @@ class MahasiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //fungsi eloquent menampilkan data menggunakan pagination
-        $mahasiswas = Mahasiswa::all(); // Mengambil semua isi tabel
-        $posts = Mahasiswa::orderBy('Nim', 'desc')->paginate(6);
-        return view('mahasiswas.index', compact('mahasiswas'))
-        ->with('i', (request()->input('page', 1) - 1) * 5);
+        // //fungsi eloquent menampilkan data menggunakan pagination
+        // $mahasiswas = Mahasiswa::all(); // Mengambil semua isi tabel
+        // $posts = Mahasiswa::orderBy('Nim', 'desc')->paginate(6);
+        // return view('mahasiswas.index', compact('mahasiswas'))
+        // ->with('i', (request()->input('page', 1) - 1) * 5);
+
+        // menampilkan 5 data teratas sesuai dengan desc
+        if($request->has('search')){
+            $mahasiswas = Mahasiswa::where('Nim', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('Nama', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('Kelas', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('Jurusan', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('No_Handphone', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('Email', 'LIKE', '%' . request('search') . '%')
+                ->orWhere('Tanggal_Lahir', 'LIKE', '%' . request('search') . '%')
+                ->paginate(5);
+    
+            return view('mahasiswas.index', ['mahasiswas' => $mahasiswas]);
+        }else{
+            $mahasiswas = Mahasiswa::orderBy('Nim', 'desc')->paginate(5);
+            return view('mahasiswas.index', compact('mahasiswas'))->with('i', (request()->input('page', 1) - 1) * 5);
+        }
     }
 
     /**
@@ -47,8 +64,8 @@ class MahasiswaController extends Controller
             'Kelas' => 'required',
             'Jurusan' => 'required',
             'No_Handphone' => 'required',
-            // 'Email' => 'required',
-            // 'Tanggal Lahir' => 'required',
+            'Email' => 'required',
+            'Tanggal_Lahir' => 'required',
             ]);
 
             //fungsi eloquent untuk menambah data
@@ -101,8 +118,8 @@ class MahasiswaController extends Controller
             'Kelas' => 'required',
             'Jurusan' => 'required',
             'No_Handphone' => 'required',
-            // 'Email' => 'required',
-            // 'Tanggal_Lahir' => 'required',
+            'Email' => 'required',
+            'Tanggal_Lahir' => 'required',
             ]);
 
             //fungsi eloquent untuk mengupdate data inputan kita

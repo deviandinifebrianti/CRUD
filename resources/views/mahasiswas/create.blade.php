@@ -41,7 +41,7 @@
                         <label for="No_Handphone">No_Handphone</label>
                         <input type="No_Handphone" name="No_Handphone" class="form-control" id="No_Handphone"
                             aria-describedby="No_Handphone">
-                    <!-- </div>
+                    </div>
                     <div class="form-group">
                         <label for="Email">Email</label>
                         <input type="Email" name="Email" class="form-control" id="Email"
@@ -50,7 +50,7 @@
                     <div class="form-group">
                         <label for="Tanggal_Lahir">Tanggal Lahir</label>
                         <input type="Tanggal_Lahir" name="Tanggal_Lahir" class="form-control" id="Tanggal_Lahir"
-                            aria-describedby="Tanggal_Lahir"> -->
+                            aria-describedby="Tanggal_Lahir">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>

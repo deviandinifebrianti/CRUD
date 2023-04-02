@@ -25,7 +25,7 @@ protected $fillable = [
     'Kelas',
     'Jurusan',
     'No_Handphone',
-    // 'Email',
-    // 'Tanggal Lahir',
+    'Email',
+    'Tanggal_Lahir',
     ];
 }

@@ -13,7 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('mahasiswas', function (Blueprint $table) {
+            $table->string('Email',50)->nullable();
+            $table->string('Tanggal_Lahir',20)->nullable();
+        });
     }
 
     /**
@@ -23,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('mahasiswas', function (Blueprint $table) {
+            $table->dropColumn('Email');
+            $table->dropColumn('Tanggal_Lahir');
+        });
     }
 };
