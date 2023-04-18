@@ -29,10 +29,10 @@
                         <input type="Nama" name="Nama" class="form-control" id="Nama" aria-describedby="Nama">
                     </div>
                     <div class="form-group">
-                        <label for="Kelas">Kelas</label>
-                        <select name="Kelas" class="form-control">
-                            @foreach ($kelas as $kelas)
-                            <option value="{{$kelas->id}}">{{$kelas->nama_kelas}}</option>
+                        <label for="kelas">Kelas</label>
+                        <select name="kelas" class="form-control">
+                            @foreach ($kelas as $Kelas)
+                            <option value="{{$Kelas->id}}">{{$Kelas->nama_kelas}}</option>
                             @endforeach
                         </select>
                     </div>

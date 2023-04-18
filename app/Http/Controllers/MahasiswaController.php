@@ -69,7 +69,7 @@ class MahasiswaController extends Controller
         $request->validate([
             'Nim' => 'required',
             'Nama' => 'required',
-            'Kelas' => 'required',
+            'kelas' => 'required',
             'Jurusan' => 'required',
             'No_Handphone' => 'required',
             'Email' => 'required',
@@ -85,7 +85,7 @@ class MahasiswaController extends Controller
             $mahasiswa->No_Handphone=$request ->get('No_Handphone');
             $mahasiswa->Email=$request ->get('Email');
             $mahasiswa->Tanggal_Lahir=$request ->get('Tanggal_Lahir');
-            $mahasiswa->save();
+            // $mahasiswa->save();
 
             //fungsi eloquent untuk menambah data dengan relasi belongs to
             $kelas = new Kelas;
