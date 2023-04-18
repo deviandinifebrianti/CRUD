@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
+use App\Models\Kelas;
+use Illuminate\Support\Facades\DB;
 
 class MahasiswaController extends Controller
 {
@@ -14,6 +16,11 @@ class MahasiswaController extends Controller
      */
     public function index(Request $request)
     {
+        // $user = Auth::user();
+        $mahasiswa = Mahasiswa::paginate(5);
+        return view('mahasiswas.index', compact('mahasiswa'))
+        ->with('i', (request()->input('page', 1) -1) *5);
+
         // //fungsi eloquent menampilkan data menggunakan pagination
         // $mahasiswas = Mahasiswa::all(); // Mengambil semua isi tabel
         // $posts = Mahasiswa::orderBy('Nim', 'desc')->paginate(6);
@@ -45,7 +52,8 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        return view('mahasiswas.create');
+        $kelas = Kelas::all();
+        return view('mahasiswas.create', ['kelas' =>$kelas]);
     }
     
 
@@ -69,7 +77,22 @@ class MahasiswaController extends Controller
             ]);
 
             //fungsi eloquent untuk menambah data
-            Mahasiswa::create($request->all());
+            // Mahasiswa::create($request->all());
+            $mahasiswa = new Mahasiswa;
+            $mahasiswa->Nim=$request ->get('Nim');
+            $mahasiswa->Nama=$request ->get('Nama');
+            $mahasiswa->Jurusan=$request ->get('Jurusan');
+            $mahasiswa->No_Handphone=$request ->get('No_Handphone');
+            $mahasiswa->Email=$request ->get('Email');
+            $mahasiswa->Tanggal_Lahir=$request ->get('Tanggal_Lahir');
+            $mahasiswa->save();
+
+            //fungsi eloquent untuk menambah data dengan relasi belongs to
+            $kelas = new Kelas;
+            $kelas->id=$request->get('kelas');
+
+            $mahasiswa->kelas()->associate($kelas);
+            $mahasiswa->save();
 
             //jika data berhasil ditambahkan, akan kembali ke halaman utama
             return redirect()->route('mahasiswas.index')

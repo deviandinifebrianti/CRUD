@@ -32,11 +32,11 @@
         <th>Tanggal_Lahir</th>
         <th width="280px">Action</th>
     </tr>
-    @foreach ($mahasiswas as $Mahasiswa)
+    @foreach ($mahasiswa as $Mahasiswa)
     <tr>
         <td>{{ $Mahasiswa->Nim }}</td>
         <td>{{ $Mahasiswa->Nama }}</td>
-        <td>{{ $Mahasiswa->Kelas }}</td>
+        <td>{{ $Mahasiswa->Kelas->nama_kelas}}</td>
         <td>{{ $Mahasiswa->Jurusan }}</td>
         <td>{{ $Mahasiswa->No_Handphone }}</td>
         <td>{{ $Mahasiswa->Email }}</td>
@@ -51,7 +51,10 @@
             </form>
         </td>
     </tr>
+    <div>
+        <!-- {!! $mahasiswa->withQueryString()->links('pagination::bootstrap-5') !!} -->
+    </div>
     @endforeach
 </table>
-{{ $mahasiswas->links() }}
+{{ $mahasiswa->links() }}
 @endsection

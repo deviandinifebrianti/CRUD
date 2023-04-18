@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\Mahasiswa as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+// use Illuminate\Database\Eloquent\Model;
+use App\Models\Kelas;
 
 class Mahasiswa extends Model
 {
@@ -22,10 +24,15 @@ class Mahasiswa extends Model
 protected $fillable = [
     'Nim',
     'Nama',
-    'Kelas',
+    // 'Kelas',
+    'kelas_id',
     'Jurusan',
     'No_Handphone',
     'Email',
     'Tanggal_Lahir',
     ];
+
+    public function kelas(){
+        return $this->belongsTo(Kelas::class);
+    }
 }
