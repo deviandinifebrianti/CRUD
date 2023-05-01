@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\Mahasiswa as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-// use Illuminate\Database\Eloquent\Model;
 use App\Models\Kelas;
+use App\Models\Mahasiswa_matakuliah;
 
 class Mahasiswa extends Model
 {
@@ -34,5 +34,9 @@ protected $fillable = [
 
     public function kelas(){
         return $this->belongsTo(Kelas::class);
+    }
+
+    public function matakuliah() {
+        return $this->belongsToMany(MataKuliah::class, "mahasiswa_matakuliah", "mahasiswa_id", "matakuliah_id")->withPivot('nilai');
     }
 }

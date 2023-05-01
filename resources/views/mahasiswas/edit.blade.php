@@ -32,8 +32,8 @@
                             ariadescribedby="Nama">
                     </div>
                     <div class="form-group">
-                        <label for="Kelas">Kelas</label>
-                        <select name="Kelas" class="form-control">
+                        <label for="kelas">Kelas</label>
+                        <select name="kelas" class="form-control">
                             @foreach ($kelas as $Kelas)
                             <option value="{{$Kelas->id}}">{{$Kelas->nama_kelas}}</option>
                             @endforeach
