@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Matakuliah;
 use App\Models\Kelas;
 use Illuminate\Support\Facades\DB;
+use PDF;
+use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
@@ -77,11 +79,16 @@ class MahasiswaController extends Controller
             'Tanggal_Lahir' => 'required',
             ]);
 
+            if ($request->file('image')) {
+                $image_name = $request->file('image')->store('mahasiswa', 'public');
+            }
+
             //fungsi eloquent untuk menambah data
             // Mahasiswa::create($request->all());
             $mahasiswa = new Mahasiswa;
             $mahasiswa->Nim=$request ->get('Nim');
             $mahasiswa->Nama=$request ->get('Nama');
+            $mahasiswa->Foto =$image_name;
             $mahasiswa->Jurusan=$request ->get('Jurusan');
             $mahasiswa->No_Handphone=$request ->get('No_Handphone');
             $mahasiswa->Email=$request ->get('Email');
@@ -154,11 +161,19 @@ class MahasiswaController extends Controller
             // return redirect()->route('mahasiswas.index')
             // ->with('success', 'Mahasiswa Berhasil Diupdate');
 
-            
+            $Mahasiswas = Mahasiswa::with('kelas')->where('Nim',$Nim)->first();
+        
+            if ($Mahasiswas->Foto && file_exists(storage_path('app/public/' . $Mahasiswas->Foto))) {
+            Storage::delete('public/' . $Mahasiswas->Foto);  
+            }
+
+            $image_name = $request->file('image')->store('mahasiswa', 'public');
+
             //Fungsi eloquent untuk tambah data
         $mahasiswas=Mahasiswa::with('kelas')->where('Nim',$Nim)->first();
         $mahasiswas->Nim=$request->get('Nim');
         $mahasiswas->Nama=$request->get('Nama');
+        $mahasiswas->Foto =$image_name;
         $mahasiswas->Jurusan=$request->get('Jurusan');
         $mahasiswas->No_Handphone=$request->get('No_Handphone');
         $mahasiswas->Email=$request->get('Email');
@@ -194,5 +209,12 @@ class MahasiswaController extends Controller
     {
         $Mahasiswa = Mahasiswa::find($Nim);
         return view('mahasiswas.nilai', compact('Mahasiswa'));
+    }
+
+    public function cetak_khs($Nim)
+    {
+        $Mahasiswa = Mahasiswa::find($Nim);
+        $cetak_khs = PDF::loadView('mahasiswas.khs_pdf', ['Mahasiswa' => $Mahasiswa]);
+        return $cetak_khs->stream();
     }
 }

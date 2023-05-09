@@ -55,4 +55,8 @@
     </tr>
     @endforeach
 </table>
+
+    <center>
+        <a href="{{ route('cetak_khs', $Mahasiswa->Nim) }}" class="btn btn-danger">Cetak PDF</a>
+    </center>
 @endsection

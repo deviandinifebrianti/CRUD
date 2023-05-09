@@ -25,17 +25,19 @@
     <tr>
         <th>Nim</th>
         <th>Nama</th>
+        <th>Foto</th>
         <th>Kelas</th>
         <th>Jurusan</th>
         <th>No_Handphone</th>
         <th>Email</th>
         <th>Tanggal_Lahir</th>
-        <th width="280px">Action</th>
+        <th width="col-md-4">Action</th>
     </tr>
     @foreach ($mahasiswa as $Mahasiswa)
     <tr>
         <td>{{ $Mahasiswa->Nim }}</td>
         <td>{{ $Mahasiswa->Nama }}</td>
+        <td><img width="100px" src="{{ asset('storage/'.$Mahasiswa->Foto) }}"></td>
         <td>{{ $Mahasiswa->kelas->nama_kelas}}</td>
         <td>{{ $Mahasiswa->Jurusan }}</td>
         <td>{{ $Mahasiswa->No_Handphone }}</td>
